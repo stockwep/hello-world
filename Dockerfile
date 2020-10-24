@@ -1,5 +1,6 @@
-ARG REGISTRY_URL=
-FROM ${REGISTRY_URL}node:9-alpine
+#ARG REGISTRY_URL=
+#FROM ${REGISTRY_URL}node:9-alpine
+FROM acmebaseartifacts.azurecr.io/node:9-alpine
 EXPOSE 80
 COPY . /src
 RUN cd /src && npm install
