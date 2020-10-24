@@ -9,7 +9,7 @@ var server = http.createServer(function (request, response) {
   response.write('<style type="text/css">body {background-color:'+process.env.BACKGROUND_COLOR+';}</style>');
  
   response.write('<h1>Azure Container Registry Tasks</h1>');
-  response.write('<h3>Enabling OS & Framework Patching -2</h3>');
+  response.write('<h3>Enabling OS & Framework Patching -3</h3>');
   response.write('<a href="https://aka.ms/acr/tasks">https://aka.ms/acr/tasks</a></p>');
   response.write('<a href="https://aka.ms/teleport/signup">https://aka.ms/teleport/signup</a></p>');
 
