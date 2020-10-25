@@ -4,7 +4,7 @@ steps:
   - cmd: bash echo {{.Secrets.REGISTRY_PUBLIC_USER}}
   - cmd: bash echo REGISTRY_PUBLIC_USER= {{.Secrets.REGISTRY_PUBLIC_USER}}
   - cmd: bash echo REGISTRY_PUBLIC_PASSWORD= {{.Secrets.REGISTRY_PUBLIC_PASSWORD}}
-  - cmd: docker login {{.Values.REGISTRY_URL}} --username registry-public-user --password j9u+seZcaWCrbR6DhHf+=YhtVEPxtiWG
+  # - cmd: docker login {{.Values.REGISTRY_URL}} --username registry-public-user --password j9u+seZcaWCrbR6DhHf+=YhtVEPxtiWG
   # Log in to Docker Hub
   - cmd: docker login {{.Values.REGISTRY_URL}} --username '{{.Secrets.REGISTRY_PUBLIC_USER}}' --password '{{.Secrets.REGISTRY_PUBLIC_PASSWORD}}'
   # Build 
