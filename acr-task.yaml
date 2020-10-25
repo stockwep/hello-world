@@ -1,0 +1,11 @@
+version: v1.1.0
+steps:
+  # Log in to Docker Hub
+  - cmd: docker login --username '{{.Secrets.REGISTRY_PUBLIC_USER}}' --password '{{.Secrets.REGISTRY_PUBLIC_PASSWORD}}'
+  # Build target image
+  - id: build-hello-world
+    build: -t {{.Run.Registry}}/hello-world:{{.Run.ID}} --build-arg REGISTRY_URL={{.Values.REGISTRY_URL}} -f Dockerfile .
+  - id: push-images
+    when: ['build-hello-world']
+    push: 
+    - "{{.Run.Registry}}/hello-world:{{.Run.ID}}"
