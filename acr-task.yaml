@@ -1,8 +1,8 @@
 version: v1.1.0
 steps:
-  - cmd: echo REGISTRY_URL= {{.Values.REGISTRY_URL}}
-  - cmd: echo REGISTRY_URL= '{{.Secrets.REGISTRY_PUBLIC_USER}}'
-  - cmd: echo REGISTRY_URL= '{{.Secrets.REGISTRY_PUBLIC_PASSWORD}}'
+  - cmd: bash echo REGISTRY_URL= {{.Values.REGISTRY_URL}}
+  - cmd: bash echo REGISTRY_URL= '{{.Secrets.REGISTRY_PUBLIC_USER}}'
+  - cmd: bash echo REGISTRY_URL= '{{.Secrets.REGISTRY_PUBLIC_PASSWORD}}'
   # Log in to Docker Hub
   - cmd: docker login {{.Values.REGISTRY_URL}} --username '{{.Secrets.REGISTRY_PUBLIC_USER}}' --password '{{.Secrets.REGISTRY_PUBLIC_PASSWORD}}'
   # Build target imageREGISTRY_URL= {{.Values.REGISTRY_URL}}
