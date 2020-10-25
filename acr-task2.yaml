@@ -1,11 +1,10 @@
 version: v1.1.0
 steps:
   - cmd: bash echo REGISTRY_URL= {{.Values.REGISTRY_URL}}
-  - cmd: bash echo {{.Secrets.REGISTRY_PUBLIC_USER}}
-  - cmd: bash echo REGISTRY_PUBLIC_USER= {{.Secrets.REGISTRY_PUBLIC_USER}}
-  - cmd: bash echo REGISTRY_PUBLIC_PASSWORD= {{.Secrets.REGISTRY_PUBLIC_PASSWORD}}
+  - cmd: bash echo REGISTRY_PUBLIC_USER= {{.Values.REGISTRY_PUBLIC_USER}}
+  - cmd: bash echo REGISTRY_PUBLIC_PASSWORD= {{.Values.REGISTRY_PUBLIC_PASSWORD}}
   # Log in to Docker Hub
-  - cmd: docker login {{.Values.REGISTRY_URL}} --username {{.Secrets.REGISTRY_PUBLIC_USER}} --password {{.Secrets.REGISTRY_PUBLIC_PASSWORD}}
+  - cmd: docker login {{.Values.REGISTRY_URL}} --username {{.Values.REGISTRY_PUBLIC_USER}} --password {{.Values.REGISTRY_PUBLIC_PASSWORD}}
   # Build 
   - id: build-hello-world
     build: -t {{.Run.Registry}}/hello-world:{{.Run.ID}} --build-arg REGISTRY_URL={{.Values.REGISTRY_URL}} -f Dockerfile .
