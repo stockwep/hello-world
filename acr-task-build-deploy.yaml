@@ -9,6 +9,8 @@ steps:
     when: ['build-hello-world']
     push: 
     - "{{.Run.Registry}}/hello-world:{{.Run.ID}}"
+  - cmd: bash echo ACR = {{.Values.ACI}}
+  - cmd: bash echo ACR_RG = {{.Values.ACI_RG}}
   - id: az-login
     # login with the identity of the task
     # run concurrently while the image is building: when: [-] indicates, wait for nothing
@@ -21,7 +23,7 @@ steps:
       --name {{.Values.ACI}} \
       --resource-group {{.Values.ACI_RG}} \
       --image {{.Run.Registry}}/hello-world:{{.Run.ID}}
-      --registry-username={{.Values.REGISTRY_USER}}
-      --registry-password={{.Values.REGISTRY_PASSWORD}}
-      --ip-address=public
+      --registry-username {{.Values.REGISTRY_USER}}
+      --registry-password {{.Values.REGISTRY_PASSWORD}}
+      --ip-address public
       --ports 80
