@@ -9,22 +9,11 @@ steps:
     when: ['build-hello-world']
     push: 
     - "{{.Run.Registry}}/hello-world:{{.Run.ID}}"
-  - cmd: bash echo ACI = {{.Values.ACI}}
-  - cmd: bash echo ACR_RG = {{.Values.ACI_RG}}
   - id: az-login
     # login with the identity of the task
     # run concurrently while the image is building: when: [-] indicates, wait for nothing
     when: ['-']
     cmd: az login --identity > /dev/null
-  - cmd: >
-      bash echo az container create 
-      --resource-group {{.Values.ACI_RG}} 
-      --name {{.Values.ACI}} 
-      --image {{.Run.Registry}}/hello-world:{{.Run.ID}} 
-      --registry-username {{.Values.REGISTRY_USER}} 
-      --registry-password {{.Values.REGISTRY_PASSWORD}} 
-      --ip-address public 
-      --ports 80
   - id: deploy-aci
     when: ['push-images']
     cmd: >
