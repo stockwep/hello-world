@@ -1,0 +1,33 @@
+version: v1.1.0
+steps:
+  # Log in to Docker Hub
+  - cmd: docker login {{.Values.REGISTRY_URL}} --username '{{.Values.REGISTRY_PUBLIC_USER}}' --password '{{.Values.REGISTRY_PUBLIC_PASSWORD}}'
+  # Build 
+  - id: build-hello-world
+    build: -t {{.Run.Registry}}/hello-world:{{.Run.ID}} --build-arg REGISTRY_URL={{.Values.REGISTRY_URL}} -f Dockerfile .
+  - id: push-images
+    when: ['build-hello-world']
+    push: 
+    - "{{.Run.Registry}}/hello-world:{{.Run.ID}}"
+  - id: az-login
+    # login with the identity of the task
+    # run concurrently while the image is building: when: [-] indicates, wait for nothing
+    when: ['-']
+    cmd: az login --identity > /dev/null
+  - id: deploy-aci
+    when: ['push-images']
+    cmd: >
+      az container create \
+      --name {{.Values.ACI}} \
+      --resource-group {{.Values.ACI_RG}} \
+      --image {{.Run.Registry}}/hello-world:{{.Run.ID}}
+      --registry-username=$(az keyvault secret show
+                        --vault-name $AKV
+                        --name {{.Run.Registry}}-user
+                        --query value -o tsv)
+      --registry-password=$(az keyvault secret show
+                            --vault-name $AKV
+                            --name {{.Run.Registry}}-password
+                            --query value -o tsv)
+      --ip-address=public
+      --ports 80
