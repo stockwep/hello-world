@@ -8,7 +8,7 @@ steps:
   # Build 
   - id: build-hello-world
     build: >
-      --build-arg REGISTRY_URL={{.Values.REGISTRY_FROM_URL}} 
+      --build-arg REGISTRY_FROM_URL={{.Values.REGISTRY_FROM_URL}} 
       -t {{.Run.Registry}}/hello-world:{{.Run.ID}} 
       -f Dockerfile 
       .
