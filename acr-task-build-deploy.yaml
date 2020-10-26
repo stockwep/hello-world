@@ -9,7 +9,7 @@ steps:
     when: ['build-hello-world']
     push: 
     - "{{.Run.Registry}}/hello-world:{{.Run.ID}}"
-  - cmd: bash echo ACR = {{.Values.ACI}}
+  - cmd: bash echo ACI = {{.Values.ACI}}
   - cmd: bash echo ACR_RG = {{.Values.ACI_RG}}
   - id: az-login
     # login with the identity of the task
