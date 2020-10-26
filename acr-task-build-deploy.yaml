@@ -21,13 +21,7 @@ steps:
       --name {{.Values.ACI}} \
       --resource-group {{.Values.ACI_RG}} \
       --image {{.Run.Registry}}/hello-world:{{.Run.ID}}
-      --registry-username=$(az keyvault secret show
-                        --vault-name $AKV
-                        --name {{.Run.Registry}}-user
-                        --query value -o tsv)
-      --registry-password=$(az keyvault secret show
-                            --vault-name $AKV
-                            --name {{.Run.Registry}}-password
-                            --query value -o tsv)
+      --registry-username={{.Values.REGISTRY_USER}}
+      --registry-password={{.Values.REGISTRY_PASSWORD}}
       --ip-address=public
       --ports 80
