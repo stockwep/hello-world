@@ -19,9 +19,9 @@ steps:
   - id: deploy-aci
     when: ['push-images']
     cmd: >
-      az container create \
-      --name {{.Values.ACI}} \
-      --resource-group {{.Values.ACI_RG}} \
+      az container create
+      --resource-group {{.Values.ACI_RG}}
+      --name {{.Values.ACI}}
       --image {{.Run.Registry}}/hello-world:{{.Run.ID}}
       --registry-username {{.Values.REGISTRY_USER}}
       --registry-password {{.Values.REGISTRY_PASSWORD}}
