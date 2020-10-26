@@ -1,10 +1,10 @@
 version: v1.1.0
+secrets:
+  - id: registry-acmerockets-user
+    keyvault: https://acr-task-credentials.vault.azure.net/secrets/registry-acmerockets-user
+  - id: registry-acmerockets-password
+    keyvault: https://acr-task-credentials.vault.azure.net/secrets/registry-acmerockets-password
 steps:
-  # Log in to Docker Hub
-  - cmd: >
-      docker login {{.Values.REGISTRY_FROM_URL}}
-      --username '{{.Values.REGISTRY_FROM_USER}}' 
-      --password '{{.Values.REGISTRY_FROM_PASSWORD}}'
   # Build 
   - id: build-hello-world
     build: >
@@ -22,13 +22,13 @@ steps:
     when: ['-']
     cmd: az login --identity > /dev/null
   - id: deploy-aci
-    when: ['push-images']
+    when: ['az-login']
     cmd: >
       az container create 
       --resource-group {{.Values.ACI_RG}} 
       --name {{.Values.ACI}} 
       --image {{.Run.Registry}}/hello-world:{{.Run.ID}} 
-      --registry-username {{.Values.REGISTRY_USER}} 
-      --registry-password {{.Values.REGISTRY_PASSWORD}} 
+      --registry-username {{.Secrets.registry-acmerockets-user}} 
+      --registry-password {{.Secrets.registry-acmerockets-password}} 
       --ip-address public 
       --ports 80
