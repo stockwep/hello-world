@@ -2,13 +2,13 @@ version: v1.1.0
 steps:
   # Log in to Docker Hub
   - cmd: >
-      docker login {{.Values.REGISTRY_SOURCE_URL}}
-      --username '{{.Values.REGISTRY_SOURCE_USER}}' 
-      --password '{{.Values.REGISTRY_SOURCE_PASSWORD}}'
+      docker login {{.Values.REGISTRY_FROM_URL}}
+      --username '{{.Values.REGISTRY_FROM_USER}}' 
+      --password '{{.Values.REGISTRY_FROM_PASSWORD}}'
   # Build 
   - id: build-hello-world
     build: >
-      --build-arg REGISTRY_URL={{.Values.REGISTRY_URL}} 
+      --build-arg REGISTRY_URL={{.Values.REGISTRY_FROM_URL}} 
       -t {{.Run.Registry}}/hello-world:{{.Run.ID}} 
       -f Dockerfile 
       .
