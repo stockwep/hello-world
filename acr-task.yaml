@@ -22,7 +22,6 @@ steps:
   - id: az-login
     # login with the identity of the task
     # run concurrently while the image is building: when: [-] indicates, wait for nothing
-    when: [-]
     cmd: az login --identity > /dev/null
   - id: deploy-aci
     when: ['az-login']
