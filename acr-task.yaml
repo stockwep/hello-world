@@ -26,3 +26,4 @@ steps:
   - cmd: bash echo ACI_RG {{.Values.ACI_RG}}
   - cmd: bash echo ACI {{.Values.ACI}}
   - cmd: bash echo IMAGE "{{.Run.Registry}}/hello-world:{{.Run.ID}}"
+  - cmd: bash echo registry-username "{{.Secrets.registry-user}}"
