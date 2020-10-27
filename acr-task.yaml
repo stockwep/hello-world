@@ -1,8 +1,8 @@
 version: v1.1.0
 secrets:
-  - id: registry-user
+  - id: registryUser
     keyvault: https://acr-task-credentials.vault.azure.net/secrets/registry-acmerockets-user
-  - id: registry-password
+  - id: registryPassword
     keyvault: https://acr-task-credentials.vault.azure.net/secrets/registry-acmerockets-password
 steps:
   # Build 
@@ -30,7 +30,7 @@ steps:
       --resource-group "{{.Values.ACI_RG}}" 
       --name "{{.Values.ACI}}" 
       --image "{{.Run.Registry}}/hello-world:{{.Run.ID}}" 
-      --registry-username "{{index .Secrets.registry-user}}" 
-      --registry-password "{{index .Secrets.registry-password}}" 
+      --registry-username "{{.Secrets.registryUser}}" 
+      --registry-password "{{.Secrets.registryPassword}}" 
       --ip-address public 
       --ports 80
