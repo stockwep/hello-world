@@ -17,7 +17,7 @@ steps:
     push: 
     - "{{.Run.Registry}}/hello-world:{{.Run.ID}}"
   - id: az-login
-    when [-]
+    when: [-]
     # login with the identity of the task
     # run concurrently while the image is building: when: [-] indicates, wait for nothing
     cmd: az login --identity > /dev/null
