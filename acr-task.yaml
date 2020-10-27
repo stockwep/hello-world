@@ -25,5 +25,3 @@ steps:
     cmd: az login --identity > /dev/null
   - cmd: bash echo ACI {{.Values.ACI}}
   - cmd: bash echo IMAGE "{{.Run.Registry}}/hello-world:{{.Run.ID}}"
-  - cmd: bash echo registry-username "{{.Secrets.registry-user}}"
-  - cmd: bash echo registry-password "{{.Secrets.registry-password}}" 
