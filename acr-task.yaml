@@ -23,7 +23,6 @@ steps:
     # login with the identity of the task
     # run concurrently while the image is building: when: [-] indicates, wait for nothing
     cmd: az login --identity > /dev/null
-  - cmd: bash echo ACI_RG {{.Values.ACI_RG}}
   - cmd: bash echo ACI {{.Values.ACI}}
   - cmd: bash echo IMAGE "{{.Run.Registry}}/hello-world:{{.Run.ID}}"
   - cmd: bash echo registry-username "{{.Secrets.registry-user}}"
