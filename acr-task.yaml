@@ -25,6 +25,8 @@ steps:
     cmd: az login --identity > /dev/null
   - id: deploy-aci
     when: ['az-login']
+    # When using - in a go template named element under . notation, the format of {{index .Object "name-pair"}} must be used
+    # See https://golang.org/pkg/text/template/#hdr-Arguments
     cmd: >
       az container create 
       --resource-group "{{.Values.ACI_RG}}" 
