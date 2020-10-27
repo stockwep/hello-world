@@ -6,9 +6,6 @@ secrets:
     keyvault: https://acr-task-credentials.vault.azure.net/secrets/registry-acmerockets-password
 steps:
   # Build 
-  - id: echo 
-    cmd: bash echo KEYVAULT {{.Values.KEYVAULT}}
-  - cmd: bash echo REGISTRY {{.Run.Registry}}
   - id: build-hello-world
     build: >
       --build-arg REGISTRY_FROM_URL={{.Values.REGISTRY_FROM_URL}} 
@@ -20,11 +17,12 @@ steps:
     push: 
     - "{{.Run.Registry}}/hello-world:{{.Run.ID}}"
   - id: az-login
+    when [-]
     # login with the identity of the task
     # run concurrently while the image is building: when: [-] indicates, wait for nothing
     cmd: az login --identity > /dev/null
   - id: deploy-aci
-    when: ['az-login']
+    when: ['az-login', 'push-images']
     # When using - in a go template named element under . notation, the format of {{index .Object "name-pair"}} must be used
     # See https://golang.org/pkg/text/template/#hdr-Arguments
     cmd: >
