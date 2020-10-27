@@ -23,14 +23,3 @@ steps:
     # login with the identity of the task
     # run concurrently while the image is building: when: [-] indicates, wait for nothing
     cmd: az login --identity > /dev/null
-  - id: deploy-aci
-    when: ['az-login']
-    cmd: >
-      az container create 
-      --resource-group hellow 
-      --name {{.Values.ACI}} 
-      --image {{.Run.Registry}}/hello-world:{{.Run.ID}} 
-      --registry-username {{.Secrets.registry-user}} 
-      --registry-password {{.Secrets.registry-password}} 
-      --ip-address public 
-      --ports 80
