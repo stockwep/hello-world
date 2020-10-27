@@ -30,7 +30,7 @@ steps:
       --resource-group "{{.Values.ACI_RG}}" 
       --name "{{.Values.ACI}}" 
       --image "{{.Run.Registry}}/hello-world:{{.Run.ID}}" 
-      --registry-username "{{index .Secrets.registry-user}}" 
-      --registry-password "{{index .Secrets.registry-password}}" 
+      --registry-username "{{index .Secrets "registry-user"}}" 
+      --registry-password "{{index .Secrets "registry-password"}}" 
       --ip-address public 
       --ports 80
