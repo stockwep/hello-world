@@ -1,9 +1,9 @@
 version: v1.1.0
 secrets:
   - id: registry-user
-    keyvault: https://{{.Values.KEYVAULT}}.vault.azure.net/secrets/registry-acmerockets-user
+    keyvault: https://{{.Values.KEYVAULT}}.vault.azure.net/secrets/registry-{{.Run.Registry}}-user
   - id: registry-password
-    keyvault: https://{{.Values.KEYVAULT}}.vault.azure.net/secrets/registry-acmerockets-password
+    keyvault: https://{{.Values.KEYVAULT}}.vault.azure.net/secrets/registry-{{.Run.Registry}}-password
 steps:
   # Build 
   - id: build-hello-world
